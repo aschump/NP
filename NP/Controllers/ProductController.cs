@@ -41,7 +41,10 @@ namespace NP.Controllers
                 return RedirectToAction("Index");
 
             }
+            else
+            {
             ModelState.AddModelError("", "Product could not be created.");
+            }
             return View(model);
         }
     }

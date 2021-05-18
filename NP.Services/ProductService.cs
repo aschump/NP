@@ -21,21 +21,32 @@ namespace NP.Services
             using (var ctx = new ApplicationDbContext())
             {
                 Product product =
-                    new Product()
+                    new Product
                     {
                         Name = model.Name,
                         Ingredients = model.Ingredients,
                         Description = model.Description,
                         Price = model.Price,
                         Category = model.Category,
-                        IsSulfateFree = model.IsSulfateFree,
-                        IsParabenFree = model.IsParabenFree,
-                        IsFormaldehydeFree = model.IsFormaldehydeFree,
-                        IsAlcoholFree = model.IsAlcoholFree,
-                        IsAnimalTested = model.IsAnimalTested,
+
+                        //IsSulfateFree = model.IsSulfateFree,
+                        //IsParabenFree = model.IsParabenFree,
+                        //IsFormaldehydeFree = model.IsFormaldehydeFree,
+                        //IsAlcoholFree = model.IsAlcoholFree,
+                        //IsAnimalTested = model.IsAnimalTested,
                         DateAdded = DateTimeOffset.UtcNow
                     };
                 ctx.Products.Add(product);
+
+                SpecialDetail specialDetail = new SpecialDetail
+                {
+                    IsSulfateFree = model.IsSulfateFree,
+                    IsParabenFree = model.IsParabenFree,
+                    IsFormaldehydeFree = model.IsFormaldehydeFree,
+                    IsAlcoholFree = model.IsAlcoholFree,
+                    IsAnimalTested = model.IsAnimalTested,
+                };
+                ctx.SpecialDetails.Add(specialDetail);
                 return ctx.SaveChanges() == 1;
             }
         }

@@ -32,6 +32,7 @@ namespace NP.Data
             return new ApplicationDbContext();
         }
         public DbSet<Product> Products { get; set; }
+        public DbSet<SpecialDetail> SpecialDetails { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder

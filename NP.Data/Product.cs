@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,11 +33,11 @@ namespace NP.Data
         public double Price { get; set; }
         [Required]
         public Category Category { get; set; }
-        public bool IsSulfateFree { get; set; }
-        public bool IsParabenFree { get; set; }
-        public bool IsFormaldehydeFree { get; set; }
-        public bool IsAlcoholFree { get; set; }
-        public bool IsAnimalTested { get; set; }
+
+        public int? SpecialDetailID { get; set; }
+
+        [ForeignKey(nameof(SpecialDetailID))]
+        public virtual SpecialDetail SpecialDetail { get; set; }
 
         [Required]
         public DateTimeOffset DateAdded { get; set; }
