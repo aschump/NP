@@ -114,6 +114,17 @@ namespace NP.Services
             }
         }
 
+        //Delete
+        public bool DeleteProduct(int productID)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Products.Single(e => e.ProductID == productID);
+                ctx.Products.Remove(entity);
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
 
         //Get by product ID for Details
         //Special Detail keeps returning as null but there is data in the table

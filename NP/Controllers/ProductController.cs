@@ -101,5 +101,23 @@ namespace NP.Controllers
         }
 
         //Delete
+        [ActionName("Delete")]
+        public ActionResult Delete(int id)
+        {
+            var svc = new ProductService();
+            var model = svc.GetProductById(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteProduct(int id)
+        {
+            var service = new ProductService();
+            service.DeleteProduct(id);
+            TempData["SaveResult"] = "Product has been deleted";
+            return RedirectToAction("Index");
+        }
     }
 }
