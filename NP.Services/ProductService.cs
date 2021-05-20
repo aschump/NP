@@ -153,6 +153,21 @@ namespace NP.Services
             }
         }
         //Get by Category
+        public IEnumerable<ProductList> GetByCategory(Category category)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query = ctx.Products.Where(e => e.Category == category).Select(e => new ProductList
+                {
+                    ProductID = e.ProductID,
+                    Name = e.Name,                    
+                    Price = e.Price,
+                    Category = e.Category
+                });
+                return query.ToList();
+
+            };
+        }
         //Get by hair type
         //Get by price range
         
