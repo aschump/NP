@@ -23,6 +23,7 @@ namespace NP.Data
     {
         [Key]
         public int ProductID { get; set; }
+
         [Required]
         public string Name { get; set; }
         [Required]
