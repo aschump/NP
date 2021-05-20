@@ -3,7 +3,7 @@ namespace NP.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class SecondMigration : DbMigration
+    public partial class InitialMigration : DbMigration
     {
         public override void Up()
         {
@@ -20,25 +20,17 @@ namespace NP.Data.Migrations
                     })
                 .PrimaryKey(t => t.SpecialDetailID);
             
-            AddColumn("dbo.Product", "SpecialDetailID", c => c.Int());
+            AddColumn("dbo.Product", "SpecialDetailID", c => c.Int(nullable: false));
+            AlterColumn("dbo.Product", "ModifiedDate", c => c.DateTimeOffset(precision: 7));
             CreateIndex("dbo.Product", "SpecialDetailID");
-            AddForeignKey("dbo.Product", "SpecialDetailID", "dbo.SpecialDetail", "SpecialDetailID");
-            DropColumn("dbo.Product", "IsSulfateFree");
-            DropColumn("dbo.Product", "IsParabenFree");
-            DropColumn("dbo.Product", "IsFormaldehydeFree");
-            DropColumn("dbo.Product", "IsAlcoholFree");
-            DropColumn("dbo.Product", "IsAnimalTested");
+            AddForeignKey("dbo.Product", "SpecialDetailID", "dbo.SpecialDetail", "SpecialDetailID", cascadeDelete: true);
         }
         
         public override void Down()
         {
-            AddColumn("dbo.Product", "IsAnimalTested", c => c.Boolean(nullable: false));
-            AddColumn("dbo.Product", "IsAlcoholFree", c => c.Boolean(nullable: false));
-            AddColumn("dbo.Product", "IsFormaldehydeFree", c => c.Boolean(nullable: false));
-            AddColumn("dbo.Product", "IsParabenFree", c => c.Boolean(nullable: false));
-            AddColumn("dbo.Product", "IsSulfateFree", c => c.Boolean(nullable: false));
             DropForeignKey("dbo.Product", "SpecialDetailID", "dbo.SpecialDetail");
             DropIndex("dbo.Product", new[] { "SpecialDetailID" });
+            AlterColumn("dbo.Product", "ModifiedDate", c => c.DateTimeOffset(nullable: false, precision: 7));
             DropColumn("dbo.Product", "SpecialDetailID");
             DropTable("dbo.SpecialDetail");
         }

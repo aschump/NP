@@ -35,11 +35,13 @@ namespace NP.Data
         [Required]
         public Category Category { get; set; }
 
-        public int? SpecialDetailID { get; set; }
 
-        [ForeignKey(nameof(SpecialDetailID))]
+        //[ForeignKey(nameof(SpecialDetail))]
+        //public int? SpecialDetailID { get; set; }
+        //public SpecialDetail SpecialDetail { get; set; }
+        public int SpecialDetailID { get; set; }
+        [ForeignKey("SpecialDetailID")]
         public virtual SpecialDetail SpecialDetail { get; set; }
-
         [Required]
         public DateTimeOffset DateAdded { get; set; }
         public DateTimeOffset? ModifiedDate { get; set; }

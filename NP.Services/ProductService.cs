@@ -18,30 +18,57 @@ namespace NP.Services
 
         public bool CreateProduct(ProductCreate model)
         {
-                var entity=
-                    new Product()
-                    {
-                        Name = model.Name,
-                        Ingredients = model.Ingredients,
-                        Description = model.Description,
-                        Price = model.Price,
-                        Category = model.Category,
-                        DateAdded = DateTimeOffset.UtcNow
-                    };
-            
-                new SpecialDetail ()
-                {
-                    IsSulfateFree = model.IsSulfateFree,
-                    IsParabenFree = model.IsParabenFree,
-                    IsFormaldehydeFree = model.IsFormaldehydeFree,
-                    IsAlcoholFree = model.IsAlcoholFree,
-                    IsAnimalTested = model.IsAnimalTested,
-                };
             using (var ctx = new ApplicationDbContext())
             {
-                ctx.Products.Add(entity);
+
+
+                SpecialDetail specialDetail = new
+                    SpecialDetail()
+                    {
+                        IsSulfateFree = model.IsSulfateFree,
+                        IsParabenFree = model.IsParabenFree,
+                        IsFormaldehydeFree = model.IsFormaldehydeFree,
+                        IsAlcoholFree = model.IsAlcoholFree,
+                        IsAnimalTested = model.IsAnimalTested,
+                    };
+                ctx.SpecialDetails.Add(specialDetail);
+                Product product =
+            new Product()
+            {
+                Name = model.Name,
+                Ingredients = model.Ingredients,
+                Description = model.Description,
+                Price = model.Price,
+                Category = model.Category,
+                DateAdded = DateTimeOffset.UtcNow
+            };
+                ctx.Products.Add(product);
                 return ctx.SaveChanges() == 1;
             }
+            //    var entity=
+            //        new Product()
+            //        {
+            //            Name = model.Name,
+            //            Ingredients = model.Ingredients,
+            //            Description = model.Description,
+            //            Price = model.Price,
+            //            Category = model.Category,
+            //            DateAdded = DateTimeOffset.UtcNow
+            //        };
+
+            //    new SpecialDetail ()
+            //    {
+            //        IsSulfateFree = model.IsSulfateFree,
+            //        IsParabenFree = model.IsParabenFree,
+            //        IsFormaldehydeFree = model.IsFormaldehydeFree,
+            //        IsAlcoholFree = model.IsAlcoholFree,
+            //        IsAnimalTested = model.IsAnimalTested,
+            //    };
+            //using (var ctx = new ApplicationDbContext())
+            //{
+            //    ctx.Products.Add(entity);
+            //    return ctx.SaveChanges() == 1;
+            //}
         }
 
         public IEnumerable<ProductList> GetProducts()
