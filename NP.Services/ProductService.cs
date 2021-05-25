@@ -168,7 +168,7 @@ namespace NP.Services
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var query = ctx.SpecialDetails.Where(e => (e.IsSulfateFree == model.IsSulfateFree) || (e.IsParabenFree == model.IsParabenFree) || (e.IsFormaldehydeFree == model.IsFormaldehydeFree) || (e.IsAlcoholFree == model.IsAlcoholFree) || (e.IsAnimalTested == model.IsAnimalTested)).ToArray()
+                var query = ctx.SpecialDetails.Where(e => (e.IsSulfateFree == true) || (e.IsParabenFree == true) || (e.IsFormaldehydeFree == true) || (e.IsAlcoholFree == true) || (e.IsAnimalTested == false)).ToArray()
                     .Select(f => BuildProduct(f));
                 return query.ToList();
 

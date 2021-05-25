@@ -46,6 +46,7 @@ namespace NP.Controllers
             }
             return View(model);
         }
+        //api/product/details/{id}
         public ActionResult Details(int id)
         {
             var svc = new ProductService();
@@ -53,19 +54,22 @@ namespace NP.Controllers
             return View(model);
         }
         //GET the CategoryList view
-        public ActionResult CategoryList()
+        //// api/product/category
+        public ActionResult Category()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult CategoryList(Category category)
+        // api/product/category/{category}
+        public ActionResult Category(Category category)
         {
             var svc = new ProductService();
             var model = svc.GetByCategory(category);
             return View(model);
         }
         //GET edit
+        // api/product/edit/{id}
         public ActionResult Edit(int id)
         {
             var service = new ProductService();

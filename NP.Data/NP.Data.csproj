@@ -56,13 +56,9 @@
   <ItemGroup>
     <Compile Include="HairType.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\202105201957157_InitialMigration.cs" />
-    <Compile Include="Migrations\202105201957157_InitialMigration.Designer.cs">
-      <DependentUpon>202105201957157_InitialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105250310433_ThirdMigration.cs" />
-    <Compile Include="Migrations\202105250310433_ThirdMigration.Designer.cs">
-      <DependentUpon>202105250310433_ThirdMigration.cs</DependentUpon>
+    <Compile Include="Migrations\202105252143451_InitialMigration.cs" />
+    <Compile Include="Migrations\202105252143451_InitialMigration.Designer.cs">
+      <DependentUpon>202105252143451_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Product.cs" />
@@ -74,11 +70,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202105201957157_InitialMigration.resx">
-      <DependentUpon>202105201957157_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105250310433_ThirdMigration.resx">
-      <DependentUpon>202105250310433_ThirdMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202105252143451_InitialMigration.resx">
+      <DependentUpon>202105252143451_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

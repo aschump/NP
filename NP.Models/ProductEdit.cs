@@ -24,6 +24,6 @@ namespace NP.Models
         public bool IsFormaldehydeFree { get; set; }
         public bool IsAlcoholFree { get; set; }
         public bool IsAnimalTested { get; set; }
-        public DateTimeOffset ModifiedDate { get; set; }
+        public DateTimeOffset? ModifiedDate { get; set; }
     }
 }
