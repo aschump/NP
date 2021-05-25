@@ -16,6 +16,10 @@ namespace NP.Models
         public string Description { get; set; }
         public double Price { get; set; }
         public Category Category { get; set; }
+        public bool TypeOne { get; set; }
+        public bool TypeTwo { get; set; }
+        public bool TypeThree { get; set; }
+        public bool TypeFour { get; set; }
         public bool IsSulfateFree { get; set; }
         public bool IsParabenFree { get; set; }
         public bool IsFormaldehydeFree { get; set; }

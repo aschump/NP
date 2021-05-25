@@ -33,6 +33,7 @@ namespace NP.Data
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<SpecialDetail> SpecialDetails { get; set; }
+        public DbSet<HairType> HairTypes { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder

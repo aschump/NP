@@ -34,11 +34,10 @@ namespace NP.Data
         public double Price { get; set; }
         [Required]
         public Category Category { get; set; }
-
-
-        //[ForeignKey(nameof(SpecialDetail))]
-        //public int? SpecialDetailID { get; set; }
-        //public SpecialDetail SpecialDetail { get; set; }
+        [Required]
+        public int HairTypeID { get; set; }
+        [ForeignKey("HairTypeID")]
+        public virtual HairType HairType { get; set; }
         public int SpecialDetailID { get; set; }
         [ForeignKey("SpecialDetailID")]
         public virtual SpecialDetail SpecialDetail { get; set; }

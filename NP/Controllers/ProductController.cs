@@ -1,4 +1,5 @@
-﻿using NP.Models;
+﻿using NP.Data;
+using NP.Models;
 using NP.Services;
 using System;
 using System.Web.Mvc;
@@ -49,6 +50,19 @@ namespace NP.Controllers
         {
             var svc = new ProductService();
             var model = svc.GetProductById(id);
+            return View(model);
+        }
+        //GET the CategoryList view
+        public ActionResult CategoryList()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CategoryList(Category category)
+        {
+            var svc = new ProductService();
+            var model = svc.GetByCategory(category);
             return View(model);
         }
         //GET edit

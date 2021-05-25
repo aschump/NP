@@ -20,8 +20,6 @@ namespace NP.Services
         {
             using (var ctx = new ApplicationDbContext())
             {
-
-
                 SpecialDetail specialDetail = new
                     SpecialDetail()
                     {
@@ -32,6 +30,16 @@ namespace NP.Services
                         IsAnimalTested = model.IsAnimalTested,
                     };
                 ctx.SpecialDetails.Add(specialDetail);
+
+                HairType hairType = new HairType()
+                {
+                    TypeOne = model.TypeOne,
+                    TypeTwo = model.TypeTwo,
+                    TypeThree = model.TypeThree,
+                    TypeFour = model.TypeFour
+                };
+                ctx.HairTypes.Add(hairType);
+
                 Product product =
             new Product()
             {
@@ -44,31 +52,7 @@ namespace NP.Services
             };
                 ctx.Products.Add(product);
                 return ctx.SaveChanges() == 1;
-            }
-            //    var entity=
-            //        new Product()
-            //        {
-            //            Name = model.Name,
-            //            Ingredients = model.Ingredients,
-            //            Description = model.Description,
-            //            Price = model.Price,
-            //            Category = model.Category,
-            //            DateAdded = DateTimeOffset.UtcNow
-            //        };
-
-            //    new SpecialDetail ()
-            //    {
-            //        IsSulfateFree = model.IsSulfateFree,
-            //        IsParabenFree = model.IsParabenFree,
-            //        IsFormaldehydeFree = model.IsFormaldehydeFree,
-            //        IsAlcoholFree = model.IsAlcoholFree,
-            //        IsAnimalTested = model.IsAnimalTested,
-            //    };
-            //using (var ctx = new ApplicationDbContext())
-            //{
-            //    ctx.Products.Add(entity);
-            //    return ctx.SaveChanges() == 1;
-            //}
+            }            
         }
 
         public IEnumerable<ProductList> GetProducts()
@@ -93,7 +77,7 @@ namespace NP.Services
             using(var ctx = new ApplicationDbContext())
             {
                 //var entity = ctx.Products.Single(e => e.ProductID == model.ProductID);
-                int? specialDetailID = ctx.Products.Single(e => e.ProductID == productId).SpecialDetailID;
+                int specialDetailID = ctx.Products.Single(e => e.ProductID == productId).SpecialDetailID;
                 SpecialDetail specialDetail = ctx.SpecialDetails.FirstOrDefault(e => e.SpecialDetailID == specialDetailID);
 
                 specialDetail.IsSulfateFree = model.IsSulfateFree;
@@ -101,6 +85,13 @@ namespace NP.Services
                 specialDetail.IsFormaldehydeFree = model.IsFormaldehydeFree;
                 specialDetail.IsAlcoholFree = model.IsAlcoholFree;
                 specialDetail.IsAnimalTested = model.IsAnimalTested;
+
+                int hairTypeID = ctx.Products.Single(e => e.ProductID == productId).HairTypeID;
+                HairType hairType = ctx.HairTypes.FirstOrDefault(e => e.HairTypeID == hairTypeID);
+                hairType.TypeOne = model.TypeOne;
+                hairType.TypeTwo = model.TypeTwo;
+                hairType.TypeThree = model.TypeThree;
+                hairType.TypeFour = model.TypeFour;
 
 
                 Product products = ctx.Products.Single(e => e.ProductID == productId);
@@ -110,7 +101,7 @@ namespace NP.Services
                 products.Price = model.Price;
                 products.Category = model.Category;
                 products.ModifiedDate = DateTimeOffset.UtcNow;
-                return ctx.SaveChanges() == 2;
+                return ctx.SaveChanges() == 3;
             }
         }
 
@@ -141,6 +132,10 @@ namespace NP.Services
                     Description = entity.Description,
                     Price = entity.Price,
                     Category = entity.Category,
+                    TypeOne = ctx.HairTypes.FirstOrDefault(e => e.HairTypeID == entity.HairTypeID).TypeOne,
+                    TypeTwo = ctx.HairTypes.FirstOrDefault(e => e.HairTypeID == entity.HairTypeID).TypeTwo,
+                    TypeThree = ctx.HairTypes.FirstOrDefault(e => e.HairTypeID == entity.HairTypeID).TypeThree,
+                    TypeFour = ctx.HairTypes.FirstOrDefault(e => e.HairTypeID == entity.HairTypeID).TypeFour,
                     IsSulfateFree = ctx.SpecialDetails.FirstOrDefault(e => e.SpecialDetailID == entity.SpecialDetailID).IsSulfateFree,
                     IsParabenFree = ctx.SpecialDetails.FirstOrDefault(e => e.SpecialDetailID == entity.SpecialDetailID).IsParabenFree,
                     IsFormaldehydeFree = ctx.SpecialDetails.FirstOrDefault(e => e.SpecialDetailID == entity.SpecialDetailID).IsFormaldehydeFree,
@@ -168,8 +163,39 @@ namespace NP.Services
 
             };
         }
+        //Get by Naturals
+        public IEnumerable<CategoryBuildList> GetByNatural(GetNaturalList model)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query = ctx.SpecialDetails.Where(e => (e.IsSulfateFree == model.IsSulfateFree) || (e.IsParabenFree == model.IsParabenFree) || (e.IsFormaldehydeFree == model.IsFormaldehydeFree) || (e.IsAlcoholFree == model.IsAlcoholFree) || (e.IsAnimalTested == model.IsAnimalTested)).ToArray()
+                    .Select(f => BuildProduct(f));
+                return query.ToList();
+
+            }
+        }
+
         //Get by hair type
-        //Get by price range
+        //Helper Method
+        private CategoryBuildList BuildProduct(SpecialDetail product)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                CategoryBuildList productList = new CategoryBuildList
+                {
+                    ProductID = ctx.Products.FirstOrDefault(e => e.SpecialDetailID == product.SpecialDetailID).ProductID,
+                    Name = ctx.Products.FirstOrDefault(e => e.SpecialDetailID == product.SpecialDetailID).Name,
+                    Category = ctx.Products.FirstOrDefault(e => e.SpecialDetailID == product.SpecialDetailID).Category,
+                    IsSulfateFree = product.IsSulfateFree,
+                    IsParabenFree = product.IsParabenFree,
+                    IsFormaldehydeFree = product.IsFormaldehydeFree,
+                    IsAlcoholFree = product.IsAlcoholFree,
+                    IsAnimalTested = product.IsAnimalTested
+                };
+                return productList;
+
+            }
+        }
         
     }
 }

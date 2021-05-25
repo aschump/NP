@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HairType.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="Migrations\202105201957157_InitialMigration.cs" />
     <Compile Include="Migrations\202105201957157_InitialMigration.Designer.cs">
