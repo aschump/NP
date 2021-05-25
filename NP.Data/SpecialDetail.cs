@@ -12,14 +12,24 @@ namespace NP.Data
         [Key]
         public int SpecialDetailID { get; set; }
         [Required]
+        [Display(Name = "Sulfate-Free")]
+
         public bool IsSulfateFree { get; set; }
         [Required]
+        [Display(Name = "Paraben-Free")]
+
         public bool IsParabenFree { get; set; }
         [Required]
+        [Display(Name = "Formaldehyde-Free")]
+
         public bool IsFormaldehydeFree { get; set; }
         [Required]
+        [Display(Name = "Alcohol-Free")]
+
         public bool IsAlcoholFree { get; set; }
         [Required]
+        [Display(Name = "Animal Tested?")]
+
         public bool IsAnimalTested { get; set; }
     }
 }
