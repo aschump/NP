@@ -64,6 +64,8 @@ namespace NP.Controllers
         // api/product/category/{category}
         public ActionResult Category(Category category)
         {
+            //if (!ModelState.IsValid)
+            //    return View(category);
             var svc = new ProductService();
             var model = svc.GetByCategory(category);
             return View(model);

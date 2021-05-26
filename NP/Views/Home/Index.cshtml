@@ -17,10 +17,14 @@
             View all products by product types such as shampoos, conditioners, moisturizers, and more!
         </p>
         <p>
+            <div class="input-group">
             @Html.DropDownList("Category", EnumHelper.GetSelectList(typeof(Category)), "Select Category", new { @class = "form-control" })
-
-            @Html.ActionLink("CategoryList", "Product")
-            <a class="btn btn-default" href="~/Product/CategoryList.cshtml">Search</a>
+                <span class="input-group-btn">
+                    <input type="submit" value="Select" class="input-group-addon btn btn-default" />
+                    </span>
+            </div>
+            @*@Html.ActionLink("Category", "Product")
+            <a class="btn btn-default" href="~/Product/Category/{">Search</a>*@
 
         @*<div class="form-group">
             <div class="col-md-offset-2 col-md-10">

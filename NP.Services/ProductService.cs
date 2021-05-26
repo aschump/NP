@@ -148,16 +148,16 @@ namespace NP.Services
             }
         }
         //Get by Category
-        public IEnumerable<ProductList> GetByCategory(Category category)
+        public IEnumerable<CategoryBuildList> GetByCategory(Category category)
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var query = ctx.Products.Where(e => e.Category == category).Select(e => new ProductList
+                var query = ctx.Products.Where(e => e.Category == category).Select(e => new CategoryBuildList
                 {
                     ProductID = e.ProductID,
-                    Name = e.Name,                    
-                    Price = e.Price,
-                    Category = e.Category
+                    Name = e.Name,   
+                    Category = e.Category,
+                    Description = e.Description
                 });
                 return query.ToList();
 
@@ -186,11 +186,7 @@ namespace NP.Services
                     ProductID = ctx.Products.FirstOrDefault(e => e.SpecialDetailID == product.SpecialDetailID).ProductID,
                     Name = ctx.Products.FirstOrDefault(e => e.SpecialDetailID == product.SpecialDetailID).Name,
                     Category = ctx.Products.FirstOrDefault(e => e.SpecialDetailID == product.SpecialDetailID).Category,
-                    IsSulfateFree = product.IsSulfateFree,
-                    IsParabenFree = product.IsParabenFree,
-                    IsFormaldehydeFree = product.IsFormaldehydeFree,
-                    IsAlcoholFree = product.IsAlcoholFree,
-                    IsAnimalTested = product.IsAnimalTested
+                    Description = ctx.Products.FirstOrDefault(e => e.SpecialDetailID == product.SpecialDetailID).Description
                 };
                 return productList;
 
