@@ -41,11 +41,7 @@ namespace NP.Services
                 };
                 ctx.HairTypes.Add(hairType);
 
-                Plan plan = new Plan()
-                {
-                    PlanID = model.PlanID
-                };
-
+              
                 Product product =
             new Product()
             {
@@ -54,7 +50,8 @@ namespace NP.Services
                 Description = model.Description,
                 Price = model.Price,
                 Category = model.Category,
-                DateAdded = DateTimeOffset.UtcNow
+                PlanID = model.PlanID,
+                DateAdded = DateTimeOffset.Now
             };
                 ctx.Products.Add(product);
                 return ctx.SaveChanges() == 1;
@@ -99,9 +96,9 @@ namespace NP.Services
                 hairType.TypeThree = model.TypeThree;
                 hairType.TypeFour = model.TypeFour;
 
-                int planID = ctx.Products.Single(e => e.ProductID == productId).PlanID;
-                Plan plan = ctx.Plans.FirstOrDefault(e => e.PlanID == planID);
-                plan.PlanID = model.PlanID;
+                //int planID = ctx.Products.Single(e => e.ProductID == productId).PlanID;
+                //Plan plan = ctx.Plans.FirstOrDefault(e => e.PlanID == planID);
+                //plan.PlanID = model.PlanID;
 
                 Product products = ctx.Products.Single(e => e.ProductID == productId);
                 products.Name = model.Name;
@@ -110,7 +107,7 @@ namespace NP.Services
                 products.Price = model.Price;
                 products.Category = model.Category;
                 products.ModifiedDate = DateTimeOffset.UtcNow;
-                return ctx.SaveChanges() == 4;
+                return ctx.SaveChanges() == 3;
             }
         }
 
@@ -172,25 +169,25 @@ namespace NP.Services
 
             };
         }
-        //Get By HairType
 
-        public IEnumerable<HairTypeBuildList> GetByHairType(bool hairType)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                //if (hairType == ctx.Products.Where(e => e.HairType.TypeOne || e.HairType.TypeTwo || e.HairType.TypeThree || e.HairType.TypeFour))
-                var query = ctx.Products.Where(e => e.HairType.TypeOne || e.HairType.TypeTwo || e.HairType.TypeThree || e.HairType.TypeFour == hairType).Select(e => new HairTypeBuildList
-                {
-                    ProductID = e.ProductID,
-                    Name = e.Name,
-                    Category = e.Category,
-                    TypeOne = ctx.HairTypes.FirstOrDefault(z => z.HairTypeID == e.HairTypeID).TypeOne,
-                    TypeTwo = ctx.HairTypes.FirstOrDefault(z => z.HairTypeID == e.HairTypeID).TypeTwo,
-                    TypeThree = ctx.HairTypes.FirstOrDefault(z => z.HairTypeID == e.HairTypeID).TypeThree,
-                    TypeFour = ctx.HairTypes.FirstOrDefault(z => z.HairTypeID == e.HairTypeID).TypeFour
-                });
-                return query.ToList();
-            }
+        //Get By HairType
+        //public IEnumerable<HairTypeBuildList> GetByHairType(bool hairType)
+        //{
+        //    using (var ctx = new ApplicationDbContext())
+        //    {
+        //        //if (hairType == ctx.Products.Where(e => e.HairType.TypeOne || e.HairType.TypeTwo || e.HairType.TypeThree || e.HairType.TypeFour))
+        //        var query = ctx.Products.Where(e => e.HairType.TypeOne || e.HairType.TypeTwo || e.HairType.TypeThree || e.HairType.TypeFour == hairType).Select(e => new HairTypeBuildList
+        //        {
+        //            ProductID = e.ProductID,
+        //            Name = e.Name,
+        //            Category = e.Category,
+        //            TypeOne = ctx.HairTypes.FirstOrDefault(z => z.HairTypeID == e.HairTypeID).TypeOne,
+        //            TypeTwo = ctx.HairTypes.FirstOrDefault(z => z.HairTypeID == e.HairTypeID).TypeTwo,
+        //            TypeThree = ctx.HairTypes.FirstOrDefault(z => z.HairTypeID == e.HairTypeID).TypeThree,
+        //            TypeFour = ctx.HairTypes.FirstOrDefault(z => z.HairTypeID == e.HairTypeID).TypeFour
+        //        });
+        //        return query.ToList();
+        //    }
             ////Get by Naturals
             //public IEnumerable<CategoryBuildList> GetByNatural(GetNaturalList model)
             //{
@@ -219,8 +216,8 @@ namespace NP.Services
             //        return productList;
 
             //    }
-            //}
+        //    }
 
-        }
+        //}
     }
 }

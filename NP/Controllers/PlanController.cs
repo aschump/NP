@@ -1,4 +1,4 @@
-﻿using NP.Models.RetailerModels;
+﻿using NP.Models.ProductModels;
 using NP.Services;
 using System;
 using System.Collections.Generic;
@@ -32,19 +32,14 @@ namespace NP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(PlanCreate model)
         {
-            if (!ModelState.IsValid)
-                return View(model);
             var service = new PlanService();
             if (service.CreatePlan(model))
             {
-                TempData["SaveResult"] = "Retailer has been created.";
+                TempData["SaveResult"] = "Plan has been created.";
                 return RedirectToAction("Index");
 
             }
-            else
-            {
-                ModelState.AddModelError("", "Retailer could not be created.");
-            }
+            ModelState.AddModelError("", "Plan could not be created.");
             return View(model);
         }
         //GET view for specific products on a plan
@@ -63,6 +58,7 @@ namespace NP.Controllers
             var model =
                 new PlanEdit
                 {
+                    PlanID = detail.PlanID,
                     Title = detail.Title,
                     Description = detail.Description
                 };
@@ -73,24 +69,15 @@ namespace NP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, PlanEdit model)
         {
-            if (!ModelState.IsValid)
-                return View(model);
-            if (model.PlanID != id)
-            {
-                ModelState.AddModelError("", "ID Mismatch");
-                return View(model);
-            }
             var service = new PlanService();
+
             if (service.UpdatePlan(id, model))
             {
                 TempData["SaveResult"] = "Plan has been updated.";
                 return RedirectToAction("Index");
 
             }
-            else
-            {
-                ModelState.AddModelError("", "Plan could not be updated.");
-            }
+           ModelState.AddModelError("", "Plan could not be updated.");
             return View(model);
         }
 

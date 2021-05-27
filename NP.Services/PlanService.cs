@@ -1,6 +1,6 @@
 ﻿using NP.Data;
 using NP.Models.Lists;
-using NP.Models.RetailerModels;
+using NP.Models.ProductModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,6 +73,7 @@ namespace NP.Services
             {
                 Plan plan = ctx.Plans.FirstOrDefault(e => e.PlanID == planId);
 
+                plan.PlanID = model.PlanID;
                 plan.Title = model.Title;
                 plan.Description = model.Description;
                 return ctx.SaveChanges() == 1;

@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NP.Models.RetailerModels
+namespace NP.Models.ProductModels
 {
     public class PlanCreate
     {
-        public int PlanID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
     }

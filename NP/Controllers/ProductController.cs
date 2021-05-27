@@ -31,18 +31,12 @@ namespace NP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ProductCreate model)
         {
-            if (!ModelState.IsValid) 
-                return View(model);
             var service = new ProductService();
             if (service.CreateProduct(model))
             {
                 TempData["SaveResult"] = "Product has been created.";
                 return RedirectToAction("Index");
 
-            }
-            else
-            {
-                ModelState.AddModelError("", "Product could not be created.");
             }
             return View(model);
         }
@@ -72,21 +66,21 @@ namespace NP.Controllers
         }
         //GET the HairTypes view
         //// api/product/hairType
-        public ActionResult HairType()
-        {
-            return View();
-        }
+        //public ActionResult HairType()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        // api/product/HairType/{hairType}
-        public ActionResult HairType(bool hairType)
-        {
-            //if (!ModelState.IsValid)
-            //    return View(category);
-            var svc = new ProductService();
-            var model = svc.GetByHairType(hairType);
-            return View(model);
-        }
+        //[HttpPost]
+        //// api/product/HairType/{hairType}
+        //public ActionResult HairType(bool hairType)
+        //{
+        //    //if (!ModelState.IsValid)
+        //    //    return View(category);
+        //    var svc = new ProductService();
+        //    var model = svc.GetByHairType(hairType);
+        //    return View(model);
+        //}
         //GET edit
         // api/product/edit/{id}
         public ActionResult Edit(int id)

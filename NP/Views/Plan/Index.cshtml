@@ -4,12 +4,13 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
+<h2>Hair Plans</h2>
+<p>Need a better hair regimen? Check out our hand-picked recommendations that are specifically geared towards your hair goals.</p>
+<hr />
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-
+<hr />
 <table class="table">
     <tr>
         <th>
@@ -42,9 +43,9 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.PlanID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.PlanID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.PlanID })
+                    @Html.ActionLink("Edit Plan", "Edit", new { id = item.PlanID }) |
+                    @Html.ActionLink("Products", "Details", new { id = item.PlanID }) |
+                    @Html.ActionLink("Delete Plan", "Delete", new { id = item.PlanID })
                 </td>
             </tr>
         }

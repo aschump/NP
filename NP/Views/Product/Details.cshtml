@@ -144,5 +144,6 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new {  id = Model.ProductID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to All Product List", "Index") |
+    @Html.ActionLink("Back to Hair Plans", "Index", "Plan", new { id = Model.PlanID }, null)
 </p>
