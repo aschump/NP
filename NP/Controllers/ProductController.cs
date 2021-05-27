@@ -53,7 +53,7 @@ namespace NP.Controllers
             var model = svc.GetProductById(id);
             return View(model);
         }
-        //GET the CategoryList view
+        //GET the Category view
         //// api/product/category
         public ActionResult Category()
         {
@@ -68,6 +68,23 @@ namespace NP.Controllers
             //    return View(category);
             var svc = new ProductService();
             var model = svc.GetByCategory(category);
+            return View(model);
+        }
+        //GET the HairTypes view
+        //// api/product/hairType
+        public ActionResult HairType()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        // api/product/HairType/{hairType}
+        public ActionResult HairType(bool hairType)
+        {
+            //if (!ModelState.IsValid)
+            //    return View(category);
+            var svc = new ProductService();
+            var model = svc.GetByHairType(hairType);
             return View(model);
         }
         //GET edit
@@ -90,6 +107,7 @@ namespace NP.Controllers
                     IsFormaldehydeFree = detail.IsFormaldehydeFree,
                     IsAlcoholFree = detail.IsAlcoholFree,
                     IsAnimalTested = detail.IsAnimalTested,
+                    PlanID = detail.PlanID,
                     ModifiedDate = DateTimeOffset.UtcNow
                 };
                 return View(model);

@@ -34,6 +34,7 @@ namespace NP.Data
         public double Price { get; set; }
         [Required]
         public Category Category { get; set; }
+        
         [Required]
         public int HairTypeID { get; set; }
         [ForeignKey("HairTypeID")]
@@ -41,6 +42,10 @@ namespace NP.Data
         public int SpecialDetailID { get; set; }
         [ForeignKey("SpecialDetailID")]
         public virtual SpecialDetail SpecialDetail { get; set; }
+        public int PlanID { get; set; }
+        [ForeignKey("PlanID")]
+        public virtual Plan Plan { get; set; }
+
         [Required]
         public DateTimeOffset DateAdded { get; set; }
         public DateTimeOffset? ModifiedDate { get; set; }

@@ -4,50 +4,28 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
+@*<div class="jumbotron">
     <h1>Serenity Naturals</h1>
     <p class="lead"></p>
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+</div>*@
 
 <div class="row">
     <div class="col-md-4">
-        <h2>View Products By Category</h2>
+        <h2>View By Category</h2>
         <p>
             View all products by product types such as shampoos, conditioners, moisturizers, and more!
         </p>
-        <p>
-            <div class="input-group">
-            @Html.DropDownList("Category", EnumHelper.GetSelectList(typeof(Category)), "Select Category", new { @class = "form-control" })
-                <span class="input-group-btn">
-                    <input type="submit" value="Select" class="input-group-addon btn btn-default" />
-                    </span>
-            </div>
-            @*@Html.ActionLink("Category", "Product")
-            <a class="btn btn-default" href="~/Product/Category/{">Search</a>*@
-
-        @*<div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Search" class="btn btn-default" />
-            </div>
-        </div>*@
-            @*@using (Html.BeginForm("CategoryList", "ProductController"))
-            {
-        < input type="submit" value="Category" class="btn btn-default" />
-            }*@
-            @*<a href='@Url.Action("CategoryList", "ProductController")'>
-            <input type='button' value='Category' />*@
-        
-        </p>
+        <p><a class="btn btn-default" href="~/Product/Category/">Check It Out &raquo;</a></p>
     </div>
-    <div class="col-md-4">
-        <h2>Search by Hair Type</h2>
-        <p>Find products made specifically for your hair type!</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>View Natural Products</h2>
-        <p>These products are all natural and have never been tested on animals.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+</div>
+<div class="col-md-4">
+    <h2>Search by Hair Type</h2>
+    <p>Find products made specifically for your hair type!</p>
+    <p><a class="btn btn-default" href="~/Product/HairType/">Check It Out &raquo;</a></p>
+</div>
+<div class="col-md-4">
+    <h2>View Plans</h2>
+    <p>Need a better hair regimen? Check out our hand-picked recommendations that are specifically geared towards your hair goals.</p>
+    <p><a class="btn btn-default" href="~/Plan/">Check It Out &raquo;</a></p>
 </div>

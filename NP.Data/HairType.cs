@@ -23,5 +23,7 @@ namespace NP.Data
         [Required]
         [Display(Name = "Type 4")]
         public bool TypeFour { get; set; }
+
+        //public IEnumerable<HairTypes> HairTypes { get; set; } = new List<HairTypes>();
     }
 }

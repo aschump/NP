@@ -1,5 +1,6 @@
 ﻿using NP.Data;
 using NP.Models;
+using NP.Models.Lists;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,13 +23,13 @@ namespace NP.Services
             {
                 SpecialDetail specialDetail = new
                     SpecialDetail()
-                    {
-                        IsSulfateFree = model.IsSulfateFree,
-                        IsParabenFree = model.IsParabenFree,
-                        IsFormaldehydeFree = model.IsFormaldehydeFree,
-                        IsAlcoholFree = model.IsAlcoholFree,
-                        IsAnimalTested = model.IsAnimalTested,
-                    };
+                {
+                    IsSulfateFree = model.IsSulfateFree,
+                    IsParabenFree = model.IsParabenFree,
+                    IsFormaldehydeFree = model.IsFormaldehydeFree,
+                    IsAlcoholFree = model.IsAlcoholFree,
+                    IsAnimalTested = model.IsAnimalTested,
+                };
                 ctx.SpecialDetails.Add(specialDetail);
 
                 HairType hairType = new HairType()
@@ -39,6 +40,11 @@ namespace NP.Services
                     TypeFour = model.TypeFour
                 };
                 ctx.HairTypes.Add(hairType);
+
+                Plan plan = new Plan()
+                {
+                    PlanID = model.PlanID
+                };
 
                 Product product =
             new Product()
@@ -52,7 +58,7 @@ namespace NP.Services
             };
                 ctx.Products.Add(product);
                 return ctx.SaveChanges() == 1;
-            }            
+            }
         }
 
         public IEnumerable<ProductList> GetProducts()
@@ -74,7 +80,7 @@ namespace NP.Services
         //Edit
         public bool UpdateProduct(int productId, ProductEdit model)
         {
-            using(var ctx = new ApplicationDbContext())
+            using (var ctx = new ApplicationDbContext())
             {
                 //var entity = ctx.Products.Single(e => e.ProductID == model.ProductID);
                 int specialDetailID = ctx.Products.Single(e => e.ProductID == productId).SpecialDetailID;
@@ -93,6 +99,9 @@ namespace NP.Services
                 hairType.TypeThree = model.TypeThree;
                 hairType.TypeFour = model.TypeFour;
 
+                int planID = ctx.Products.Single(e => e.ProductID == productId).PlanID;
+                Plan plan = ctx.Plans.FirstOrDefault(e => e.PlanID == planID);
+                plan.PlanID = model.PlanID;
 
                 Product products = ctx.Products.Single(e => e.ProductID == productId);
                 products.Name = model.Name;
@@ -101,7 +110,7 @@ namespace NP.Services
                 products.Price = model.Price;
                 products.Category = model.Category;
                 products.ModifiedDate = DateTimeOffset.UtcNow;
-                return ctx.SaveChanges() == 3;
+                return ctx.SaveChanges() == 4;
             }
         }
 
@@ -155,7 +164,7 @@ namespace NP.Services
                 var query = ctx.Products.Where(e => e.Category == category).Select(e => new CategoryBuildList
                 {
                     ProductID = e.ProductID,
-                    Name = e.Name,   
+                    Name = e.Name,
                     Category = e.Category,
                     Description = e.Description
                 });
@@ -163,35 +172,55 @@ namespace NP.Services
 
             };
         }
-        //Get by Naturals
-        public IEnumerable<CategoryBuildList> GetByNatural(GetNaturalList model)
+        //Get By HairType
+
+        public IEnumerable<HairTypeBuildList> GetByHairType(bool hairType)
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var query = ctx.SpecialDetails.Where(e => (e.IsSulfateFree == true) || (e.IsParabenFree == true) || (e.IsFormaldehydeFree == true) || (e.IsAlcoholFree == true) || (e.IsAnimalTested == false)).ToArray()
-                    .Select(f => BuildProduct(f));
-                return query.ToList();
-
-            }
-        }
-
-        //Get by hair type
-        //Helper Method
-        private CategoryBuildList BuildProduct(SpecialDetail product)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                CategoryBuildList productList = new CategoryBuildList
+                //if (hairType == ctx.Products.Where(e => e.HairType.TypeOne || e.HairType.TypeTwo || e.HairType.TypeThree || e.HairType.TypeFour))
+                var query = ctx.Products.Where(e => e.HairType.TypeOne || e.HairType.TypeTwo || e.HairType.TypeThree || e.HairType.TypeFour == hairType).Select(e => new HairTypeBuildList
                 {
-                    ProductID = ctx.Products.FirstOrDefault(e => e.SpecialDetailID == product.SpecialDetailID).ProductID,
-                    Name = ctx.Products.FirstOrDefault(e => e.SpecialDetailID == product.SpecialDetailID).Name,
-                    Category = ctx.Products.FirstOrDefault(e => e.SpecialDetailID == product.SpecialDetailID).Category,
-                    Description = ctx.Products.FirstOrDefault(e => e.SpecialDetailID == product.SpecialDetailID).Description
-                };
-                return productList;
-
+                    ProductID = e.ProductID,
+                    Name = e.Name,
+                    Category = e.Category,
+                    TypeOne = ctx.HairTypes.FirstOrDefault(z => z.HairTypeID == e.HairTypeID).TypeOne,
+                    TypeTwo = ctx.HairTypes.FirstOrDefault(z => z.HairTypeID == e.HairTypeID).TypeTwo,
+                    TypeThree = ctx.HairTypes.FirstOrDefault(z => z.HairTypeID == e.HairTypeID).TypeThree,
+                    TypeFour = ctx.HairTypes.FirstOrDefault(z => z.HairTypeID == e.HairTypeID).TypeFour
+                });
+                return query.ToList();
             }
+            ////Get by Naturals
+            //public IEnumerable<CategoryBuildList> GetByNatural(GetNaturalList model)
+            //{
+            //    using (var ctx = new ApplicationDbContext())
+            //    {
+            //        var query = ctx.SpecialDetails.Where(e => (e.IsSulfateFree == true) || (e.IsParabenFree == true) || (e.IsFormaldehydeFree == true) || (e.IsAlcoholFree == true) || (e.IsAnimalTested == false)).ToArray()
+            //            .Select(f => BuildProduct(f));
+            //        return query.ToList();
+
+            //    }
+            //}
+
+            ////Get by hair type
+            ////Helper Method
+            //private CategoryBuildList BuildProduct(SpecialDetail product)
+            //{
+            //    using (var ctx = new ApplicationDbContext())
+            //    {
+            //        CategoryBuildList productList = new CategoryBuildList
+            //        {
+            //            ProductID = ctx.Products.FirstOrDefault(e => e.SpecialDetailID == product.SpecialDetailID).ProductID,
+            //            Name = ctx.Products.FirstOrDefault(e => e.SpecialDetailID == product.SpecialDetailID).Name,
+            //            Category = ctx.Products.FirstOrDefault(e => e.SpecialDetailID == product.SpecialDetailID).Category,
+            //            Description = ctx.Products.FirstOrDefault(e => e.SpecialDetailID == product.SpecialDetailID).Description
+            //        };
+            //        return productList;
+
+            //    }
+            //}
+
         }
-        
     }
 }

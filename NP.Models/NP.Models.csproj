@@ -56,11 +56,16 @@
   <ItemGroup>
     <Compile Include="Lists\GetNaturalList.cs" />
     <Compile Include="Lists\CategoryBuildList.cs" />
-    <Compile Include="ProductCreate.cs" />
-    <Compile Include="ProductDetail.cs" />
-    <Compile Include="ProductEdit.cs" />
+    <Compile Include="Lists\HairTypeBuildList.cs" />
+    <Compile Include="Lists\PlanProductList.cs" />
+    <Compile Include="ProductModels\ProductCreate.cs" />
+    <Compile Include="ProductModels\ProductDetail.cs" />
+    <Compile Include="ProductModels\ProductEdit.cs" />
     <Compile Include="Lists\ProductList.cs" />
+    <Compile Include="Lists\PlanList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PlanModels\PlanCreate.cs" />
+    <Compile Include="PlanModels\PlanEdit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

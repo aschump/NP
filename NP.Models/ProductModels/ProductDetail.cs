@@ -25,6 +25,7 @@ namespace NP.Models
         public bool IsFormaldehydeFree { get; set; }
         public bool IsAlcoholFree { get; set; }
         public bool IsAnimalTested { get; set; }
+        public int PlanID { get; set; }
         [Display(Name = "Added")]
         public DateTimeOffset DateAdded { get; set; }
         [Display(Name = "Updated")]

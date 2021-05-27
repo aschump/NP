@@ -20,6 +20,16 @@ namespace NP.Data.Migrations
                 .PrimaryKey(t => t.HairTypeID);
             
             CreateTable(
+                "dbo.Plan",
+                c => new
+                    {
+                        PlanID = c.Int(nullable: false, identity: true),
+                        Title = c.String(),
+                        Description = c.String(),
+                    })
+                .PrimaryKey(t => t.PlanID);
+            
+            CreateTable(
                 "dbo.Product",
                 c => new
                     {
@@ -31,14 +41,17 @@ namespace NP.Data.Migrations
                         Category = c.Int(nullable: false),
                         HairTypeID = c.Int(nullable: false),
                         SpecialDetailID = c.Int(nullable: false),
+                        PlanID = c.Int(nullable: false),
                         DateAdded = c.DateTimeOffset(nullable: false, precision: 7),
                         ModifiedDate = c.DateTimeOffset(precision: 7),
                     })
                 .PrimaryKey(t => t.ProductID)
                 .ForeignKey("dbo.HairType", t => t.HairTypeID, cascadeDelete: true)
+                .ForeignKey("dbo.Plan", t => t.PlanID, cascadeDelete: true)
                 .ForeignKey("dbo.SpecialDetail", t => t.SpecialDetailID, cascadeDelete: true)
                 .Index(t => t.HairTypeID)
-                .Index(t => t.SpecialDetailID);
+                .Index(t => t.SpecialDetailID)
+                .Index(t => t.PlanID);
             
             CreateTable(
                 "dbo.SpecialDetail",
@@ -132,11 +145,13 @@ namespace NP.Data.Migrations
             DropForeignKey("dbo.IdentityUserClaim", "ApplicationUser_Id", "dbo.ApplicationUser");
             DropForeignKey("dbo.IdentityUserRole", "IdentityRole_Id", "dbo.IdentityRole");
             DropForeignKey("dbo.Product", "SpecialDetailID", "dbo.SpecialDetail");
+            DropForeignKey("dbo.Product", "PlanID", "dbo.Plan");
             DropForeignKey("dbo.Product", "HairTypeID", "dbo.HairType");
             DropIndex("dbo.IdentityUserLogin", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.IdentityUserClaim", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.IdentityUserRole", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.IdentityUserRole", new[] { "IdentityRole_Id" });
+            DropIndex("dbo.Product", new[] { "PlanID" });
             DropIndex("dbo.Product", new[] { "SpecialDetailID" });
             DropIndex("dbo.Product", new[] { "HairTypeID" });
             DropTable("dbo.IdentityUserLogin");
@@ -146,6 +161,7 @@ namespace NP.Data.Migrations
             DropTable("dbo.IdentityRole");
             DropTable("dbo.SpecialDetail");
             DropTable("dbo.Product");
+            DropTable("dbo.Plan");
             DropTable("dbo.HairType");
         }
     }
