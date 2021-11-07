@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -12,10 +13,14 @@ namespace NP.Data
     {
         Shampoo,
         Conditioner,
+        [Description("Deep Conditioner")]
         DeepConditioner,
+        [Description("Leave-In Conditioner")]
         LeaveInConditioner,
         Moisturizer,
+        [Description("Hair Color")]
         HairColor,
+        [Description("Styling Tool")]
         StylingTool,
         Oil
     }

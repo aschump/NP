@@ -1,0 +1,14 @@
+Used to resolve can not find path error:
+
+Removed from line 28 outpatth 
+bin\Release\
+
+Error:
+The parameters dictionary contains a null entry for parameter 'id' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult Details(Int32)' in 'NP.Controllers.ProductController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
+Parameter name: parameters
+
+Resolution:
+
+ expecting an id parameter in your URL but you aren't supplying one
+to fix supply an id to reference an object
+
